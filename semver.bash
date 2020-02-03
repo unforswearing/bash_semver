@@ -6,11 +6,6 @@
 # TODO: option to change '--metadata' behavior to *keep* any other subpatch
 #       or metadata present in the version
 
-
-# do not overwrite any file from this script
-# use increment_version.bash [opt] [version] > version.txt
-set -C
-
 opt="$1"
 version="$2"
 
