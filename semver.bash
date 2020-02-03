@@ -64,11 +64,15 @@ IFS='.'
 
 # if no version is passed to the script, unset
 # $opt to trigger the usage in the case statement
-if [[ -z "$version" ]]; then opt=""; fi;
+if [[ -z "$version" ]]; then
+  "$opt" != "--help" && opt="";
+fi;
 
 # read the version into an array to extract any subpatches or metadata
 read -r -a darr <<< "${version}"
 
+# 'rest' is any subpatch or metadata included in 
+# the version passed to this script
 rest="$(echo "${darr[2]}" | cut -d"-" -f2)"
 
 case "$opt" in
