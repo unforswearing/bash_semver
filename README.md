@@ -3,7 +3,7 @@ semver.bash
 
 Increment semantic versioning strings in shell scripts, a fork of [fmahnke/shell-semver](https://github.com/fmahnke/shell-semver).
 
-```bash
+```
 $ ./semver.bash
 usage: semver.bash [ -M | -m | -p | -s | -d ] version
 use option --help for full help text.
