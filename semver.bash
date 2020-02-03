@@ -1,6 +1,11 @@
 #!/bin/bash
 
 # https://github.com/unforswearing/bash-semver
+# TODO: add option to change default '--subpatch' behavior to *remove* any other
+#       subpatch or metadata present in the version at runtime
+# TODO: option to change '--metadata' behavior to *keep* any other subpatch
+#       or metadata present in the version
+
 
 # do not overwrite any file from this script
 # use increment_version.bash [opt] [version] > version.txt
@@ -33,12 +38,14 @@ options:
 
   -s | --subpatch
   option -s is append only. when passing a version to without a so-called
-  "subpatch", option -s will append "-a" as the subpatch to the version.
-  if the version already has a subpatch that is in the format "-[aA-zZ]",
+  "subpatch", option -s will append "a" as the subpatch to the version as
+  "version-a". if the version already has a subpatch that is in the format "-[aA-zZ]",
   the subpatch will be incrmented, eg: version '1.5.2-r' will increment
-  to '1.5.2-s'. if the version contains a subpatch not matching the "-[aA-zZ]"
-  format (eg metadata set with option -d), the subpatch will be appended to
-  the version  after the metadata. for example, version '1.5.2-r-dev-1.5.3'
+  to '1.5.2-s'. incrementation of single letters works through letter z.
+
+  if the version contains a subpatch not matching the "-[aA-zZ]" format
+  (such as metadata set with option -d), the subpatch will be appended to
+  the version after the metadata. for example, version '1.5.2-r-dev-1.5.3'
   will be updated to '1.5.2-r-dev-1.5.3-a'.
 
   -d | --metadata
@@ -64,10 +71,8 @@ IFS='.'
 # $opt to trigger the usage in the case statement
 if [[ -z "$version" ]]; then opt=""; fi;
 
+# read the version into an array to extract any subpatches or metadata
 read -r -a darr <<< "${version}"
-
-# index=2
-# if [[ "$opt" == "-d" ]] || [[ "$opt" == "--metadata" ]]; then index=3; fi;
 
 rest="$(echo "${darr[2]}" | cut -d"-" -f2)"
 
@@ -105,7 +110,7 @@ case "$opt" in
     echo "${version/%$s/$incrs}"
   ;;
   -d|--metadata)
-    meta="$2"
+    meta="$(echo $2 | sed 's/^-*//g')"
     version="$(echo $3 | sed 's/\-.*$//g')"
 
     echo "${version// /.}-$meta"
