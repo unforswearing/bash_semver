@@ -25,5 +25,5 @@ $ ./semver.bash -d "beta-2.1.4" 2.1.3
 
 # Only one option can be used at a time, but commands can be chained:
 $ ./semver.bash -p 1.1.15 | ./semver.bash -s $(cat -)
-1.16-a
+1.1.16-a
 ```
