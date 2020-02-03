@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://github.com/unforswearing/bash-semver
+
 # do not overwrite any file from this script
 # use increment_version.bash [opt] [version] > version.txt
 set -C
@@ -16,7 +18,7 @@ EOF
 
 fullusage() {
   cat <<EOF
-usage: 
+usage:
   increment_version.bash [ -M | -m | -p | -s | -d ] version
 
 options:
@@ -30,26 +32,26 @@ options:
   that is: M[ajor].m[inor].p[atch]-s[ubpatch]. for example, '1.5.2-r'.
 
   -s | --subpatch
-  option -s is append only. when passing a version to without a so-called 
-  "subpatch", option -s will append "-a" as the subpatch to the version. 
-  if the version already has a subpatch that is in the format "-[aA-zZ]", 
-  the subpatch will be incrmented, eg: version '1.5.2-r' will increment 
-  to '1.5.2-s'. if the version contains a subpatch not matching the "-[aA-zZ]" 
-  format (eg metadata set with option -d), the subpatch will be appended to 
-  the version  after the metadata. for example, version '1.5.2-r-dev-1.5.3' 
+  option -s is append only. when passing a version to without a so-called
+  "subpatch", option -s will append "-a" as the subpatch to the version.
+  if the version already has a subpatch that is in the format "-[aA-zZ]",
+  the subpatch will be incrmented, eg: version '1.5.2-r' will increment
+  to '1.5.2-s'. if the version contains a subpatch not matching the "-[aA-zZ]"
+  format (eg metadata set with option -d), the subpatch will be appended to
+  the version  after the metadata. for example, version '1.5.2-r-dev-1.5.3'
   will be updated to '1.5.2-r-dev-1.5.3-a'.
 
   -d | --metadata
-  metadata can be added to a version by using option -d. you must provide the 
+  metadata can be added to a version by using option -d. you must provide the
   metdata as a parameter to option d, for example:
   - the command 'increment_version.bash -d "beta-1.5.3" 1.5.2' will produce
     '1.5.2-beta-1.5.3'
-  - metadata will replace a version containing a subpatch, eg. version '1.5.2-r' 
+  - metadata will replace a version containing a subpatch, eg. version '1.5.2-r'
     updated with metadata "beta-1.5.3" produces '1.5.2-beta-1.5.3'.
 
 note:
-  increment_version.bash is a loose implementation of semantic versioning 
-  that suits a particular need and may not strictly adhere to the specification 
+  increment_version.bash is a loose implementation of semantic versioning
+  that suits a particular need and may not strictly adhere to the specification
   described at https://semver.org/.
 
 EOF
@@ -73,14 +75,14 @@ case "$opt" in
   -m|--minor)
     M="$(echo "$version" | cut -d. -f1)"
     m="$(echo "$version" | cut -d"." -f2)"
-    
-    version="$M.$((++m))" 
+
+    version="$M.$((++m))"
     echo "$version.0"
   ;;
   -p|--patch)
     read -r -a parr <<< "${version}"
     p="${parr[2]}"
-  
+
     echo "${version/%$p/$((++p))}"
   ;;
   -s|--subpatch)
@@ -104,7 +106,7 @@ case "$opt" in
 
     echo "${version/$rest/$meta}"
   ;;
-  --help) fullusage ;; 
+  --help) fullusage ;;
   *) usage ;;
 esac
 
