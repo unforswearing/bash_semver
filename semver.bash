@@ -65,6 +65,10 @@ IFS='.'
 if [[ -z "$version" ]]; then opt=""; fi;
 
 read -r -a darr <<< "${version}"
+
+# index=2
+# if [[ "$opt" == "-d" ]] || [[ "$opt" == "--metadata" ]]; then index=3; fi;
+
 rest="$(echo "${darr[2]}" | cut -d"-" -f2)"
 
 case "$opt" in
@@ -101,10 +105,10 @@ case "$opt" in
     echo "${version/%$s/$incrs}"
   ;;
   -d|--metadata)
-    meta="$version"
-    version="$3"
+    meta="$2"
+    version="$(echo $3 | sed 's/\-.*$//g')"
 
-    echo "${version/$rest/$meta}"
+    echo "${version// /.}-$meta"
   ;;
   --help) fullusage ;;
   *) usage ;;
