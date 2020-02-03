@@ -1,7 +1,7 @@
 semver.bash
 ===========
 
-Increment semantic versioning strings in shell scripts.
+Increment semantic versioning strings in shell scripts, a fork of [fmahnke/shell-semver](https://github.com/fmahnke/shell-semver).
 
 ```bash
 $ ./semver.bash
