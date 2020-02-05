@@ -11,7 +11,7 @@ version="$2"
 
 usage() {
   cat <<EOF
-usage: increment_version.bash [ -M | -m | -p | -s | -d ] version
+usage: semver.bash [ -M | -m | -p | -s | -d ] version
 use option --help for full help text.
 EOF
 }
@@ -19,7 +19,7 @@ EOF
 fullusage() {
   cat <<EOF
 usage:
-  increment_version.bash [ -M | -m | -p | -s | -d ] version
+  semver.bash [ -M | -m | -p | -s | -d ] version
 
 options:
   -M  increment Major version, eg: '1.0.0' -> '2.0.0'
@@ -28,7 +28,7 @@ options:
   -s  increment subpatch version, eg: '1.0.0' -> '1.0.0-a'
   -d  add metadata to the version, eg: '1.0.0' -> '1.0.0-dev-1.0.1'
 
-  increment_version.bash assumes your version is formatted as "M.m.p-s",
+  semver.bash assumes your version is formatted as "M.m.p-s",
   that is: M[ajor].m[inor].p[atch]-s[ubpatch]. for example, '1.5.2-r'.
 
   -s | --subpatch
@@ -46,13 +46,13 @@ options:
   -d | --metadata
   metadata can be added to a version by using option -d. you must provide the
   metdata as a parameter to option d, for example:
-  - the command 'increment_version.bash -d "beta-1.5.3" 1.5.2' will produce
+  - the command 'semver.bash -d "beta-1.5.3" 1.5.2' will produce
     '1.5.2-beta-1.5.3'
   - metadata will replace a version containing a subpatch, eg. version '1.5.2-r'
     updated with metadata "beta-1.5.3" produces '1.5.2-beta-1.5.3'.
 
 note:
-  increment_version.bash is a loose implementation of semantic versioning
+  semver.bash is a loose implementation of semantic versioning
   that suits a particular need and may not strictly adhere to the specification
   described at https://semver.org/.
 
