@@ -109,10 +109,10 @@ case "$opt" in
     echo "${version/%$s/$incrs}"
   ;;
   -d|--metadata)
-    meta="$(echo $2 | sed 's/^-*//g')"
-    version="$(echo $3 | sed 's/\-.*$//g')"
+    meta="${2}"
+    version="${3%%-*}"
 
-    echo "${version// /.}-$meta"
+    echo "${version}-$meta"
   ;;
   --help) fullusage ;;
   *) usage ;;
