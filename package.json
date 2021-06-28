@@ -1,0 +1,39 @@
+{
+  "name": "bash-semver",
+  "version": "1.0.1",
+  "description": "Simple semantic version increment tool, a fork of fmahnke/shell-semver",
+  "main": "semver.bash",
+  "scripts": {
+    "test": "semver.bash --help"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unforswearing/bash-semver.git"
+  },
+  "keywords": [
+    "bash",
+    "semantic",
+    "versining",
+    "cli",
+    "macos",
+    "linux",
+    "versioning",
+    "tool"
+  ],
+  "author": "unforswearing",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unforswearing/bash-semver/issues"
+  },
+  "homepage": "https://github.com/unforswearing/bash-semver#readme",
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "funding": {
+    "type" : "individual",
+    "url" : "https://www.unforswearing.com/#/"
+  }
+}
+
+
