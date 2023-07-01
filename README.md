@@ -12,7 +12,7 @@ TBD
 
 View help by running `semver.bash --help`
 
-```bash
+```txt
 semver.bash [option [ -M | -m | -p | -s | -d <metadata> ]] version
 ```
 
