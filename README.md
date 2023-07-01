@@ -31,17 +31,23 @@ use option --help for full help text.
 
 ## Usage
 
-View help by running `semver.bash --help`
-
-```txt
+```shell
+# General options for semver.bash
 semver.bash [option [ -M | -m | -p | -s | -d <metadata> ]] version
 ```
+
+View help by running `semver.bash --help`
+
+<br />
+
+## Options
 
 * Both short and long options can be used with `semver.bash`. 
 * Two arguments are required for all options execpt `-d | --metadata`. 
   * If you are adding metadata to your version with option `-d` you must include the metadata string immediately after the option flag.
 
 ```bash
+# Metadata must immediately follow the -d or --metadata flag
 semver.bash -d <metadata> version
 ```
 
@@ -57,10 +63,6 @@ semver.bash -M -m 1.2.9
 # Instead, use the following code to update the Major and Minor version
 semver.bash -M 1.2.9 | semver.bash -m "$(cat -)"
 ```
-
-<br />
-
-## Options
 
 ### Major
 
