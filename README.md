@@ -11,8 +11,16 @@ Clone this repository and run `semver.bash` directly:
 
 ```shell-session
 $ git clone https://github.com/unforswearing/bash_semver.git
+Cloning into 'bash_semver'...
+remote: Enumerating objects: 86, done.
+remote: Counting objects: 100% (86/86), done.
+remote: Compressing objects: 100% (60/60), done.
+remote: Total 86 (delta 40), reused 65 (delta 22), pack-reused 0
+Unpacking objects: 100% (86/86), done.
 $ cd bash_semver
-# ./bash_semver --help
+$ bash bash_semver --help
+usage: semver.bash [ -M | -m | -p | -s | -d ] version
+use option --help for full help text.
 ```
 
 ## Usage
