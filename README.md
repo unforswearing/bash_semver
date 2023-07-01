@@ -38,8 +38,6 @@ semver.bash -d <metadata> version
 
 * An updated version.
 
-<br />
-
 ## Options
 
 `semver.bash` accepts a single option an the version you want to update. For example you can use the following command to increment the minor version from `2.5.7` to `2.6.0` 
@@ -47,8 +45,6 @@ semver.bash -d <metadata> version
 ```bash
 semver.bash -m 2.5.7
 ```
-
-<br />
 
 ### Major
 
@@ -63,8 +59,6 @@ semver.bash -M 1.0.0
 
 Output: `2.0.0`
 
-<br />
-
 ### Minor
 
 > Flags: `-m, --minor`
@@ -78,8 +72,6 @@ semver.bash -m 2.0.0
 
 Output: `2.1.0`
 
-<br />
-
 ### Patch 
 
 > Flags: `-p, --patch`
@@ -92,8 +84,6 @@ semver.bash -p 2.1.0
 ```
 
 Output: `2.1.1`
-
-<br />
 
 ### Subpatch
 
@@ -118,8 +108,6 @@ Option -s is append only. when passing a version to without a so-called "subpatc
 
 If the version contains metadata (set with option -d), the subpatch will be appended to the version after the metadata. For example, version `1.5.2-r-dev-1.5.3` will be updated to `1.5.2-r-dev-1.5.3-a`.
 
-<br />
-
 ### Metadata
 
 > Flags: `-d, --metadata`
@@ -133,11 +121,7 @@ semver.bash -d "dev-2.1.2" "2.1.1-a"
 
 Output: `2.1.1-dev-2.1.2`
 
-<p>
-
-#### Using metadata 
-
-Metadata will replace the subpatch in your version. For example:
+**Note:** Metadata will replace the subpatch in your version. For example:
 
 ```bash
 semver.bash --metadata "beta-1.5.3" 1.5.2-r
