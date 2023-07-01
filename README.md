@@ -5,6 +5,8 @@
 
 This code lives at https://github.com/unforswearing/bash-semver
 
+<br />
+
 ## Installation
 
 Clone this repository and run `semver.bash` directly:
@@ -24,6 +26,8 @@ usage: semver.bash [ -M | -m | -p | -s | -d ] version
 use option --help for full help text.
 
 ```
+
+<br />
 
 ## Usage
 
@@ -53,6 +57,8 @@ semver.bash -M -m 1.2.9
 # Instead, use the following code to update the Major and Minor version
 semver.bash -M 1.2.9 | semver.bash -m "$(cat -)"
 ```
+
+<br />
 
 ## Options
 
@@ -138,3 +144,5 @@ semver.bash --metadata "beta-1.5.3" 1.5.2-r
 ```
 
 Output: `1.5.2-beta-1.5.3`
+
+<br />
