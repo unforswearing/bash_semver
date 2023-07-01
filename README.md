@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD041 -->
 [![shellcheck](https://github.com/unforswearing/bash-semver/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/unforswearing/bash-semver/actions/workflows/shellcheck.yml)
 
 `semver.bash` is a loose implementation of semantic versioning that suits a particular need and may not strictly adhere to the specification described at https://semver.org/.
@@ -6,7 +7,13 @@ This code lives at https://github.com/unforswearing/bash-semver
 
 ## Installation
 
-TBD
+Clone this repository and run `semver.bash` directly:
+
+```shell-session
+$ git clone https://github.com/unforswearing/bash_semver.git
+$ cd bash_semver
+# ./bash_semver --help
+```
 
 ## Usage
 
@@ -16,7 +23,16 @@ View help by running `semver.bash --help`
 semver.bash [option [ -M | -m | -p | -s | -d <metadata> ]] version
 ```
 
-Two arguments are required for most commands. You can not use more than one flag at a time. This means you will not be able to use `semver.bash` to make multiple updates with a single execution. 
+* Both short and long options can be used with `semver.bash`. 
+* Two arguments are required for all options execpt `-d | --metadata`. 
+  * If you are adding metadata to your version with option `-d` you must include the metadata string immediately after the option flag.
+
+```bash
+semver.bash -d <metadata> version
+```
+
+* You can not use more than one flag at a time. 
+  * This means you will not be able to use `semver.bash` to make multiple updates with a single execution. 
 
 ```bash
 # Bad Code
@@ -28,27 +44,11 @@ semver.bash -M -m 1.2.9
 semver.bash -M 1.2.9 | semver.bash -m "$(cat -)"
 ```
 
-If you are adding metadata to your version with option `-d` you must include the metadata string immediately after the option flag.
-
-```bash
-semver.bash -d <metadata> version
-```
-
-### Output on stdout
-
-* An updated version.
-
 ## Options
-
-`semver.bash` accepts a single option an the version you want to update. For example you can use the following command to increment the minor version from `2.5.7` to `2.6.0` 
-
-```bash
-semver.bash -m 2.5.7
-```
 
 ### Major
 
-> Flags: `-M, --major`
+> option flags: `-M, --major`
 
 Increment major version.
 
@@ -61,7 +61,7 @@ Output: `2.0.0`
 
 ### Minor
 
-> Flags: `-m, --minor`
+> option flags: `-m, --minor`
 
 Increment minor version.
 
@@ -74,7 +74,7 @@ Output: `2.1.0`
 
 ### Patch 
 
-> Flags: `-p, --patch`
+> option flags: `-p, --patch`
 
 Increment "patch" version.
 
@@ -87,7 +87,7 @@ Output: `2.1.1`
 
 ### Subpatch
 
-> Flags: `-s, --subpatch`
+> option flags: `-s, --subpatch`
 
 Increment "subpatch" version.
 
@@ -102,15 +102,15 @@ Output: `2.1.1-a`
 
 #### Adding or updating a subpatch
 
-Option -s is append only. when passing a version to without a so-called "subpatch", option -s will append "a" as the subpatch to the version as "version-a". If the version already has a subpatch that is in the format "-[aA-zZ]", the subpatch will be incrmented, eg: version '1.5.2-r' will increment to '1.5.2-s'. incrementation of single letters works through letter z.
+Option `-s` is append only. when passing a version to without a so-called "subpatch", option `-s` will append "a" as the subpatch to the version as "version-a". If the version already has a subpatch that is in the format `-[aA-zZ]`, the subpatch will be incrmented, eg: version `1.5.2-r` will increment to `1.5.2-s`. incrementation of single letters works through letter z.
 
 #### Subpatches and metadata
 
-If the version contains metadata (set with option -d), the subpatch will be appended to the version after the metadata. For example, version `1.5.2-r-dev-1.5.3` will be updated to `1.5.2-r-dev-1.5.3-a`.
+If the version contains metadata (set with option `-d`), the subpatch will be appended to the version after the metadata. For example, version `1.5.2-r-dev-1.5.3` will be updated to `1.5.2-r-dev-1.5.3-a`.
 
 ### Metadata
 
-> Flags: `-d, --metadata`
+> option flags: `-d, --metadata`
 
 Add metadata to the version.
 
