@@ -1,13 +1,76 @@
 #!/bin/bash
+main() {
+  local opt="$1"
+  local version="$2"
 
-# https://github.com/unforswearing/bash-semver
-# TODO: add option to change default '--subpatch' behavior to *remove* any other
-#       subpatch or metadata present in the version at runtime
-# TODO: option to change '--metadata' behavior to *keep* any other subpatch
-#       or metadata present in the version
+  # Change the IFS for this script in order to better recognize
+  # the formatting for a semantic version string. The previous value
+  # of the `IFS` environment variable will be saved to `OIFS` allowing
+  # the script to restore the `IFS` value when the script exits.
+  local OIFS="${IFS}"
+  IFS='.'
 
-opt="$1"
-version="$2"
+  # Check that the `$version` variable contains a value
+  # if no version is passed to the script, unset
+  # $opt to trigger the usage in the case statement
+  if [[ -z "$version" ]]; then
+    [[ "$opt" != "--help" ]] && opt="";
+  fi;
+
+  # read the version into an array to extract any subpatches or metadata
+  read -r -a darr <<< "${version}"
+
+  # Variable 'rest' is any subpatch or metadata included in
+  # the version passed to this script
+  local rest=
+  rest="$(echo "${darr[2]}" | cut -d"-" -f2)"
+
+  local M=; local m=; local p=; local s=; 
+  case "$opt" in
+    -M|--major)
+      M="$(echo "$version" | cut -d. -f1)"
+      echo "$((++M)).0.0"
+    ;;
+    -m|--minor)
+      M="$(echo "$version" | cut -d. -f1)"
+      m="$(echo "$version" | cut -d"." -f2)"
+
+      version="$M.$((++m))"
+      echo "$version.0"
+    ;;
+    -p|--patch)
+      read -r -a parr <<< "${version}"
+      p="${parr[2]}"
+
+      echo "${version/%$p/$((++p))}"
+    ;;
+    -s|--subpatch)
+      s="$(echo "$version" | cut -d"-" -f2 | fold -w1 | tail -n1)"
+
+      # increment a single [aA-zZ] character, from "a" to "b"
+      # from: https://stackoverflow.com/a/16824640
+      incrs="$(echo "$s" | tr "0-9a-z" "1-9a-z_")"
+
+      # make sure the last item in version has a subpatch
+      # if the version doesn't have a subpatch to increment
+      # append "-a" to create a new subpatch for the version
+      # from: https://unix.stackexchange.com/a/316540
+      [ -z "${s//[0-9]}" ] && [ -n "$s" ] && incrs="$s-a"
+
+      echo "${version/%$s/$incrs}"
+    ;;
+    -d|--metadata)
+      local meta="${2}"
+      version="${3%%-*}"
+
+      echo "${version}-$meta"
+    ;;
+    --help) fullusage ;;
+    *) usage ;;
+  esac
+
+  IFS="${OIFS}"
+}
 
 usage() {
   cat <<EOF
@@ -59,63 +122,4 @@ note:
 EOF
 }
 
-OIFS="${IFS}"
-IFS='.'
-
-# if no version is passed to the script, unset
-# $opt to trigger the usage in the case statement
-if [[ -z "$version" ]]; then
-  [[ "$opt" != "--help" ]] && opt="";
-fi;
-
-# read the version into an array to extract any subpatches or metadata
-read -r -a darr <<< "${version}"
-
-# 'rest' is any subpatch or metadata included in
-# the version passed to this script
-rest="$(echo "${darr[2]}" | cut -d"-" -f2)"
-
-case "$opt" in
-  -M|--major)
-    M="$(echo "$version" | cut -d. -f1)"
-    echo "$((++M)).0.0"
-  ;;
-  -m|--minor)
-    M="$(echo "$version" | cut -d. -f1)"
-    m="$(echo "$version" | cut -d"." -f2)"
-
-    version="$M.$((++m))"
-    echo "$version.0"
-  ;;
-  -p|--patch)
-    read -r -a parr <<< "${version}"
-    p="${parr[2]}"
-
-    echo "${version/%$p/$((++p))}"
-  ;;
-  -s|--subpatch)
-    s="$(echo "$version" | cut -d"-" -f2 | fold -w1 | tail -n1)"
-
-    # increment a single [aA-zZ] character, from "a" to "b"
-    # from: https://stackoverflow.com/a/16824640
-    incrs="$(echo "$s" | tr "0-9a-z" "1-9a-z_")"
-
-    # make sure the last item in version has a subpatch
-    # if the version doesn't have a subpatch to increment
-    # append "-a" to create a new subpatch for the version
-    # from: https://unix.stackexchange.com/a/316540
-    [ -z "${s//[0-9]}" ] && [ -n "$s" ] && incrs="$s-a"
-
-    echo "${version/%$s/$incrs}"
-  ;;
-  -d|--metadata)
-    meta="${2}"
-    version="${3%%-*}"
-
-    echo "${version}-$meta"
-  ;;
-  --help) fullusage ;;
-  *) usage ;;
-esac
-
-IFS="${OIFS}"
+main "$@"
