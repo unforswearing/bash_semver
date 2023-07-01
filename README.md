@@ -1,7 +1,7 @@
 <!-- markdownlint-disable MD041 -->
 [![shellcheck](https://github.com/unforswearing/bash-semver/actions/workflows/shellcheck.yml/badge.svg)](https://github.com/unforswearing/bash-semver/actions/workflows/shellcheck.yml)
 
-`semver.bash` is a loose implementation of semantic versioning that suits a particular need and may not strictly adhere to the specification described at https://semver.org/.
+`semver.bash` is a loose implementation of semantic versioning that suits a particular need and may not strictly adhere to the specification described at https://semver.org/spec/v2.0.0.html.
 
 This code lives at https://github.com/unforswearing/bash-semver
 
