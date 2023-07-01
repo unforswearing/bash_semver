@@ -118,7 +118,7 @@ Output: `2.1.1-a`
 
 #### Adding or updating a subpatch
 
-Option `-s` is append only. when passing a version to without a so-called "subpatch", option `-s` will append "a" as the subpatch to the version as "version-a". If the version already has a subpatch that is in the format `-[aA-zZ]`, the subpatch will be incrmented, eg: version `1.5.2-r` will increment to `1.5.2-s`. incrementation of single letters works through letter z.
+Option `-s` is append only. when passing a version to without a so-called "subpatch", option `-s` will append "a" as the subpatch to the version as "version-a". If the version already has a subpatch that is in the format `-[aA-zZ]`, the subpatch will be incrmented, eg: version `1.5.2-r` will increment to `1.5.2-s`. Incrementation of single letters works through letter z.
 
 #### Subpatches and metadata
 
