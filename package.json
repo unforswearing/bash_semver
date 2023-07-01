@@ -4,7 +4,9 @@
   "description": "Simple semantic version increment tool, a fork of fmahnke/shell-semver",
   "main": "semver.bash",
   "scripts": {
-    "test": "semver.bash --help"
+    "test": "semver.bash --help",
+    "update": "bash update.bash",
+    "release": "bash release.bash"
   },
   "repository": {
     "type": "git",

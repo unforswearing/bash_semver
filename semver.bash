@@ -1,4 +1,6 @@
 #!/bin/bash
+# https://github.com/unforswearing/bash_semver
+
 main() {
   local opt="$1"
   local version="$2"
@@ -22,11 +24,27 @@ main() {
 
   # Variable 'rest' is any subpatch or metadata included in
   # the version passed to this script
+  # note: this does not work with version that do not have metadata
+  #       the `rest` var will contain the patch value
   local rest=
   rest="$(echo "${darr[2]}" | cut -d"-" -f2)"
 
   local M=; local m=; local p=; local s=; 
   case "$opt" in
+    -n|--normal) 
+      echo "print the 'normal' version without subpatch or metadata (eg. 1.0.1)"
+    ;;
+    -c|--components)
+      # print the individual componets of the version
+      echo "${darr[@]}"
+    ;;
+    -r|--rest) 
+      # print only the subpatch / metadata
+      echo "$rest"
+    ;;
+    -v|--validate)
+      echo "validate the version matches a regex suggested by semver.org"
+    ;;
     -M|--major)
       M="$(echo "$version" | cut -d. -f1)"
       echo "$((++M)).0.0"
