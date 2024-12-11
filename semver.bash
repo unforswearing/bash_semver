@@ -1,6 +1,10 @@
 #!/bin/bash
 # https://github.com/unforswearing/bash_semver
 
+# @todo enforce precedence 
+#       https://semver.org/spec/v2.0.0.html#spec-item-11
+
+# main
 main() {
   local opt="$1"
   local version="$2"
